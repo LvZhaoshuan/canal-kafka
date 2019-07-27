@@ -14,7 +14,10 @@ kafka消费数据到Elasticsearch的过程，实现Elasticsearch的近实时数�
 ##### 1. 要启动的项目，需要先安装阿里的canal服务。
 [canal安装教程](https://github.com/alibaba/canal/wiki/Canal-Kafka-RocketMQ-QuickStart)
 > 本人安装mac本地:canal.deployer-1.1.3.tar.gz
-> 首先下载canal的最新[release](https://github.com/alibaba/canal/releases)版本。canal.deployer-latest.tar.gz
+> 首先下载canal的最新[release](https://github.com/alibaba/canal/releases)版本。
+
+canal.deployer-latest.tar.gz
+
 > 1.安装路径: meApp/canal位置。
 
 > 2.下面是配置canal的meApp/canal/conf/路径下,$vim canal.properties
