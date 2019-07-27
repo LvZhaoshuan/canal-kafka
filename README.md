@@ -373,15 +373,14 @@ interactive-timeout
 ```
 然后重启MySQL数据库:
 重启命令如下:
-```bash
-启动MySQL服务
-sudo /usr/local/MySQL/support-files/mysql.server start
+a.启动MySQL服务
+>sudo /usr/local/MySQL/support-files/mysql.server start
 
-停止MySQL服务
-sudo /usr/local/mysql/support-files/mysql.server stop
+b.停止MySQL服务
+>sudo /usr/local/mysql/support-files/mysql.server stop
 
-重启MySQL服务
-sudo /usr/local/mysql/support-files/mysql.server restart
+c.重启MySQL服务
+>sudo /usr/local/mysql/support-files/mysql.server restart
 ```
 ##### 3. 安装kafka
 1.下载kafka_2.12-2.2.0.tg安装包，解压缩kafka_2.12-2.2.0,我的本地路径:
@@ -414,7 +413,8 @@ b.解压缩安装包到安装路径:meApp/elasticsearch-6.5.0
 
 c.进入elasticsearch-6.5.0路径下,启动
 > ./bin/elasticsearch 
->[node1] publish_address {192.168.2.102:9300}, bound_addresses {[::]:9300}
+
+> [node1] publish_address {192.168.2.102:9300}, bound_addresses {[::]:9300}
 启动ok
 
 d.自定义配置Elasticsearch:进入meApp/elasticsearch-6.5.0 config路径
