@@ -398,6 +398,7 @@ d.查看启动的kafka topic list.
 传送门:[zookeeper安装](https://www.jianshu.com/p/5491d16e6abd)
  
 ##### 5. 安装Elasticsearch
+传送门:[Mac install elasticsearch](https://linux.cn/article-11125-1.html)
 a.Elasticsearch官网下载安装包elasticsearch-6.5.0.tar.gz,[release](https://www.elastic.co/downloads/elasticsearch)
 b.解压缩安装包到安装路径:meApp/elasticsearch-6.5.0
 > tar -xzvf elasticsearch-6.5.0.tar.gz
