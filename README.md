@@ -16,6 +16,7 @@ kafka消费数据到Elasticsearch的过程，实现Elasticsearch的近实时数�
 > 本人安装mac本地:canal.deployer-1.1.3.tar.gz
 > 首先下载canal的最新[release](https://github.com/alibaba/canal/releases)版本。canal.deployer-latest.tar.gz
 > 1.安装路径: meApp/canal位置。
+
 > 2.下面是配置canal的meApp/canal/conf/路径下,$vim canal.properties
 ```bash
 #canal.manager.jdbc.password=121212
@@ -174,7 +175,9 @@ canal.instance.enableDruid=false
 #canal.instance.pwdPublicKey=MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBALK4BUxdDltRRE5/zXpVEVPUgunvscYFtEip3pmLlhrWpacX7y7GCMo2/JM6LeHmiiNdH1FWgGCpUfircSwlWKUCAwEAAQ==
 # table regex
 #canal.instance.filter.regex=.*\\..*
-canal.instance.filter.regex=yibao_health\\.yb_patient_doctor_relation,yibao_health\\.yb_patient_scan_log,yibao_health\\.yb_doctor_patient_grouping_instance
+canal.instance.filter.regex=yibao_health\\.yb_patient_doctor_relation,yibao_health\\.yb_patient_scan_log
+#多表用逗号分开
+#canal.instance.filter.regex=yibao_health\\.yb_patient_doctor_relation,yibao_health\\.yb_patient_scan_log,yibao_health\\.yb_doctor_patient_grouping_instance
 # table black regex
 canal.instance.filter.black.regex=
 
@@ -182,7 +185,9 @@ canal.instance.filter.black.regex=
 #canal.mq.topic=example
 # dynamic topic route by schema or table regex
 #canal.mq.dynamicTopic=mytest1.user,mytest2\\..*,.*\\..*
-canal.mq.dynamicTopic=yibao_health.yb_patient_doctor_relation,yibao_health.yb_patient_scan_log,yibao_health.yb_doctor_patient_grouping_instance
+canal.mq.dynamicTopic=yibao_health.yb_patient_doctor_relation
+#canal动态生成topic,一个表对应一个topic,多个用逗号分开
+#canal.mq.dynamicTopic=yibao_health.yb_patient_doctor_relation,yibao_health.yb_patient_scan_log
 canal.mq.partition=0
 # hash partition config
 #canal.mq.partitionsNum=3
@@ -190,21 +195,21 @@ canal.mq.partition=0
 #################################################
 ```
 以上配置完毕后需要启动canal-server,启动命令如下:本人安装canal-server路径:meApp/canal
-> 启动
+> 1.启动
 ```bash
 cd meApp/canal/
 sh bin/startup.sh
 ```
-> 停止
+> 2.停止
 ```bash
 cd meApp/canal/
 sh bin/stop.sh
 ```
-> 查看 logs/canal/canal.log
+> 3.查看 logs/canal/canal.log
 ```bash
 vi logs/canal/canal.log
 ```
-> 查看instance的日志：
+> 4.查看instance的日志：
 ```bash
 vi logs/example/example.log
 ```
@@ -400,6 +405,7 @@ d.查看启动的kafka topic list.
 ##### 5. 安装Elasticsearch
 传送门:[Mac install elasticsearch](https://linux.cn/article-11125-1.html)
 a.Elasticsearch官网下载安装包elasticsearch-6.5.0.tar.gz,[release](https://www.elastic.co/downloads/elasticsearch)
+
 b.解压缩安装包到安装路径:meApp/elasticsearch-6.5.0
 > tar -xzvf elasticsearch-6.5.0.tar.gz
 
