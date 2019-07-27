@@ -381,7 +381,8 @@ b.停止MySQL服务
 
 c.重启MySQL服务
 >sudo /usr/local/mysql/support-files/mysql.server restart
-```
+
+
 ##### 3. 安装kafka
 1.下载kafka_2.12-2.2.0.tg安装包，解压缩kafka_2.12-2.2.0,我的本地路径:
 $pwd
@@ -413,12 +414,14 @@ b.解压缩安装包到安装路径:meApp/elasticsearch-6.5.0
 
 c.进入elasticsearch-6.5.0路径下,启动
 > ./bin/elasticsearch 
-
-> [node1] publish_address {192.168.2.102:9300}, bound_addresses {[::]:9300}
-启动ok
+```bash
+[node1] publish_address {192.168.2.102:9300}, bound_addresses {[::]:9300}
+```
+如上则Elasticsearch启动ok
 
 d.自定义配置Elasticsearch:进入meApp/elasticsearch-6.5.0 config路径
 > $ vim elasticsearch.yml
+
 ```bash
 #
 cluster.name: houxiurong
