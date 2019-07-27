@@ -1,0 +1,10 @@
+*.iml
+*.idea/
+*.gitee/
+.DS_Store
+.classpath
+.project
+.settings
+logs/
+*.log
+target/
