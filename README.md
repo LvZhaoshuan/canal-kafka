@@ -4,10 +4,12 @@
 canal-kafka-elasticsearch
 
 #### 软件架构
-软件架构说明
+软件架构说明:
 
-本项目是基于阿里的mysql canal binlog监控数据到kafka,
+本项目是基于阿里的监控MySQL binlog 的canal监控数据变化发送到kafka,
 kafka消费数据到Elasticsearch的过程，实现Elasticsearch的近实时数查询需求。
+
+note：kafka消费者更加topic使用工厂设计模式.
 
 #### 安装教程
 
