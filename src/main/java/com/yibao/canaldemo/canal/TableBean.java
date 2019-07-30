@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 来自 com.alibaba.otter.canal.protocol->FlatMessage
+ * 消息对应com.alibaba.otter.canal.protocol->FlatMessage
  *
  * @author houxiurong
  * @date 2019-07-26
