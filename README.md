@@ -7,6 +7,58 @@ Binlog Event深度解析Insert/Update/Delete,
 生成CanalEntry后Canal接收处理。
 
 ##### BinlogParser过程:
+首先看下binlog张啥样？
+>hxr-mac:mysql houxiurong$ sudo /usr/local/mysql/bin/mysqlbinlog --no-defaults /usr/local/mysql/data/mysql-bin.000002
+
+```bash
+#190730 11:36:35 server id 1  end_log_pos 44399 CRC32 0x5e6dce21 	Query	thread_id=149	exec_time=0	error_code=0
+SET TIMESTAMP=1564457795/*!*/;
+BEGIN
+/*!*/;
+# at 44399
+#190730 11:36:35 server id 1  end_log_pos 44487 CRC32 0x6d931387 	Table_map: `yibao_health`.`yb_patient_doctor_relation` mapped to number 1884
+# at 44487
+#190730 11:36:35 server id 1  end_log_pos 44593 CRC32 0x83226026 	Update_rows: table id 1884 flags: STMT_END_F
+
+BINLOG '
+Q7s/XRMBAAAAWAAAAMetAAAAAFwHAAAAAAEADHlpYmFvX2hlYWx0aAAaeWJfcGF0aWVudF9kb2N0
+b3JfcmVsYXRpb24ACQMBEhIDAwMDAQIAAAAAhxOTbQ==
+Q7s/XR8BAAAAagAAADGuAAAAAFwHAAAAAAEAAgAJ/////wD+XwAAAACZo7bsT5mjvLkBAgAAAAIA
+AABkAAAAFAAAAAEA/l8AAAAAmaO27E+Zo7y5IwIAAAACAAAAZAAAABQAAAACJmAigw==
+'/*!*/;
+# at 44593
+#190730 11:36:35 server id 1  end_log_pos 44624 CRC32 0x4c56fb11 	Xid = 16295
+COMMIT/*!*/;
+# at 44624
+#190730 14:10:30 server id 1  end_log_pos 44689 CRC32 0xc384c38e 	Anonymous_GTID	last_committed=55	sequence_number=56
+SET @@SESSION.GTID_NEXT= 'ANONYMOUS'/*!*/;
+# at 44689
+#190730 14:10:30 server id 1  end_log_pos 44777 CRC32 0x1e5b1a46 	Query	thread_id=149	exec_time=0	error_code=0
+SET TIMESTAMP=1564467030/*!*/;
+BEGIN
+/*!*/;
+# at 44777
+#190730 14:10:30 server id 1  end_log_pos 44865 CRC32 0x74c3ff8b 	Table_map: `yibao_health`.`yb_patient_doctor_relation` mapped to number 1884
+# at 44865
+#190730 14:10:30 server id 1  end_log_pos 44971 CRC32 0x56f85ee5 	Update_rows: table id 1884 flags: STMT_END_F
+
+BINLOG '
+Vt8/XRMBAAAAWAAAAEGvAAAAAFwHAAAAAAEADHlpYmFvX2hlYWx0aAAaeWJfcGF0aWVudF9kb2N0
+b3JfcmVsYXRpb24ACQMBEhIDAwMDAQIAAAAAi//DdA==
+Vt8/XR8BAAAAagAAAKuvAAAAAFwHAAAAAAEAAgAJ/////wD+XgAAAACZo1kO2JmjttQ7AgAAAAIA
+AAAkAAAADQAAAAIA/l4AAAAAmaNZDtiZo7zingIAAAACAAAAJAAAAA0AAAAD5V74Vg==
+'/*!*/;
+# at 44971
+#190730 14:10:30 server id 1  end_log_pos 45002 CRC32 0xbb61951f 	Xid = 16602
+COMMIT/*!*/;
+SET @@SESSION.GTID_NEXT= 'AUTOMATIC' /* added by mysqlbinlog */ /*!*/;
+DELIMITER ;
+# End of log file
+/*!50003 SET COMPLETION_TYPE=@OLD_COMPLETION_TYPE*/;
+/*!50530 SET @@SESSION.PSEUDO_SLAVE_MODE=0*/;
+```
+
+Canal解析过程:
 (Binlog接收 --> Binlog Event解析 --> Insert/Update/Delete深度解析 --> 生成CanalEntry) ==>Canal处理
 
 #### 基础功能说明
@@ -16,6 +68,13 @@ kafka消费数据到Elasticsearch的过程，实现Elasticsearch的近实时数�
 Note：kafka消费者提前添加topicEnum到System.setProperty,SpEL语言解析。
 
 其实canal里面也有解析topic的方式,动态topic加载(MQMessageUtils.messageTopics).
+
+1.mysql Binlog解析过程:
+MysqlEventParser ---> new SlaveEntryPosition(binlog, Long.valueOf(position), masterHost, masterPort);
+最后解析为: CanalEntry.Entry
+
+2.解析kafka动态配置topic配置文件:
+MQMessageUtils ---> 
 
 #### 安装教程
 
