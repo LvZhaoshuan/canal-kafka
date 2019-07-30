@@ -30,11 +30,13 @@ public class ElasticsearchServiceImpl implements ElasticsearchService {
 
     @Override
     public void insertById(String index, String type, String id, Map<String, Object> dataMap) {
+        log.info("=============================================================");
         log.info("开始查询数据库patientDoctorRelation->id=" + Integer.valueOf(id));
         PatientDoctorRelationDO patientDoctorRelation = patientDoctorRelationMapper.selectById(Integer.valueOf(id));
         log.info("数据库查询patientDoctorRelation->data:{}", JSON.toJSONString(patientDoctorRelation));
         transportClient.prepareIndex(index, type, id).setSource(dataMap).get();
-        log.info("落数据到Es-patientDoctorRelation->es-data:{}", JSON.toJSONString(dataMap));
+        log.info("落数据到Elasticsearch-patientDoctorRelation->es-data:{}", JSON.toJSONString(dataMap));
+        log.info("=============================================================");
     }
 
     @Override
