@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * 来自 com.alibaba.otter.canal.protocol->FlatMessage
+ *
  * @author houxiurong
  * @date 2019-07-26
  */
@@ -35,12 +37,12 @@ public class TableBean implements Serializable {
     /**
      * 行数据
      */
-    private List<Map> data;
+    private List<Map<String, String>> data;
 
     /**
      * 更新时-行旧数据
      */
-    private List<Map> old;
+    private List<Map<String, String>> old;
 
     /**
      * 是否是ddl语句
@@ -48,7 +50,7 @@ public class TableBean implements Serializable {
     private Boolean isDdl;
 
     /**
-     * 操作时间
+     * binlog executeTime
      */
     private Long es;
 
@@ -62,15 +64,15 @@ public class TableBean implements Serializable {
     /**
      * 表主键
      */
-    private String[] pkName;
+    private List<String> pkName;
 
     /**
      * 表字段语句
      */
-    private Map mysqlType;
+    private Map<String, String> mysqlType;
 
     /**
      * 表字段类型
      */
-    private Map sqlType;
+    private Map<String, Integer> sqlType;
 }
