@@ -2,14 +2,19 @@
 
 #### 介绍
 canal-kafka-elasticsearch
+canal的原理是伪装自己为一个MySQL Slave服务，接收MySQL dump协议请求的binary log日志给canal(slave),canal通过protobuf对象序列化压平byte[]处理,
+Binlog Event深度解析Insert/Update/Delete,
+生成CanalEntry后Canal接收处理。
 
-#### 软件架构
-软件架构说明:
+##### BinlogParser过程:
+(Binlog接收 --> Binlog Event解析 --> Insert/Update/Delete深度解析 --> 生成CanalEntry) ==>Canal处理
 
-本项目是基于阿里的监控MySQL binlog 的canal监控数据变化发送到kafka,
+#### 基础功能说明
+canal-kafka-elasticsearch是基于阿里的监控MySQL binary log 的canal监控数据变化发送到kafka,
 kafka消费数据到Elasticsearch的过程，实现Elasticsearch的近实时数查询需求。
 
-note：kafka消费者更加topic使用工厂设计模式.
+-- Note：kafka消费者添加topic用System工厂设计模式。
+-- 其实canal里面也有解析topic的方式,动态topic加载(MQMessageUtils.messageTopics).
 
 #### 安装教程
 
