@@ -13,8 +13,9 @@ Binlog Event深度解析Insert/Update/Delete,
 canal-kafka-elasticsearch是基于阿里的监控MySQL binary log 的canal监控数据变化发送到kafka,
 kafka消费数据到Elasticsearch的过程，实现Elasticsearch的近实时数查询需求。
 
--- Note：kafka消费者添加topic用System工厂设计模式。
--- 其实canal里面也有解析topic的方式,动态topic加载(MQMessageUtils.messageTopics).
+Note：kafka消费者添加topic用System工厂设计模式。
+
+其实canal里面也有解析topic的方式,动态topic加载(MQMessageUtils.messageTopics).
 
 #### 安装教程
 
