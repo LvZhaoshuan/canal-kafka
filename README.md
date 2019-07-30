@@ -2,11 +2,13 @@
 
 #### 介绍
 canal-kafka-elasticsearch
-canal的原理是伪装自己为一个MySQL Slave服务，接收MySQL dump协议请求的binary log日志给canal(slave),canal通过protobuf对象序列化压平byte[]处理,
-Binlog Event深度解析Insert/Update/Delete,
-生成CanalEntry后Canal接收处理。
+canal的原理是伪装自己为一个MySQL Slave服务。
 
-##### BinlogParser过程:
+接收MySQL dump协议请求的binary log日志到canal(slave),canal通过Google 的protobuf对象序列化byte[]。
+
+Binlog Event深度解析Insert/Update/Delete,
+生成CanalEntry后给到Canal处理。
+
 首先看下binlog张啥样？
 >hxr-mac:mysql houxiurong$ sudo /usr/local/mysql/bin/mysqlbinlog --no-defaults /usr/local/mysql/data/mysql-bin.000002
 
@@ -57,24 +59,55 @@ DELIMITER ;
 /*!50003 SET COMPLETION_TYPE=@OLD_COMPLETION_TYPE*/;
 /*!50530 SET @@SESSION.PSEUDO_SLAVE_MODE=0*/;
 ```
-
+##### BinlogParser过程:
 Canal解析过程:
-(Binlog接收 --> Binlog Event解析 --> Insert/Update/Delete深度解析 --> 生成CanalEntry) ==>Canal处理
+
+###### Binlog接收 --> Binlog Event解析 --> Insert/Update/Delete深度解析 --> 生成CanalEntry ==>Canal处理
 
 #### 基础功能说明
-canal-kafka-elasticsearch是基于阿里的监控MySQL binary log 的canal监控数据变化发送到kafka,
+canal-kafka-elasticsearch是基于阿里的Canal监控数据变化解析数据后发送到kafka,
+
 kafka消费数据到Elasticsearch的过程，实现Elasticsearch的近实时数查询需求。
 
-Note：kafka消费者提前添加topicEnum到System.setProperty,SpEL语言解析。
+>Note：kafka消费者提前添加topicEnum到System.setProperty,SpEL语言解析。
 
-其实canal里面也有解析topic的方式,动态topic加载(MQMessageUtils.messageTopics).
+>其实canal里面也有解析topic的方式,动态topic加载(MQMessageUtils.messageTopics).
 
 1.mysql Binlog解析过程:
 MysqlEventParser ---> new SlaveEntryPosition(binlog, Long.valueOf(position), masterHost, masterPort);
+
 最后解析为: CanalEntry.Entry
 
-2.解析kafka动态配置topic配置文件:
-MQMessageUtils ---> 
+2.Kafka动态配置topic配置文件:
+>MQMessageUtils ---> 
+```
+ public static boolean matchDynamicTopic(String name, String dynamicTopicConfigs) {
+        if (StringUtils.isEmpty(dynamicTopicConfigs)) {
+            return false;
+        }
+        boolean res = false;
+        List<DynamicTopicData> datas = dynamicTopicDatas.get(dynamicTopicConfigs);
+        for (DynamicTopicData data : datas) {
+            if (data.simpleName != null) {
+                if (data.simpleName.equalsIgnoreCase(name)) {
+                    res = true;
+                    break;
+                }
+            } else if (name.contains(".")) {
+                if (data.tableRegexFilter != null && data.tableRegexFilter.filter(name)) {
+                    res = true;
+                    break;
+                }
+            } else {
+                if (data.schemaRegexFilter != null && data.schemaRegexFilter.filter(name)) {
+                    res = true;
+                    break;
+                }
+            }
+        }
+        return res;
+    }
+```
 
 #### 安装教程
 
