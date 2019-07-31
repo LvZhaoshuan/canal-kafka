@@ -592,3 +592,161 @@ CREATE TABLE `yb_patient_doctor_relation` (
 2. 新建 Feat_xxx 分支
 3. 提交代码
 4. 新建 Pull Request
+
+> Canal-kafka-FlatMessage:
+```
+{
+    "data":[
+        {
+            "id":"121",
+            "is_deleted":"0",
+            "create_time":"2019-07-26 16:14:28",
+            "modify_time":"2019-07-26 16:14:28",
+            "creator":"2",
+            "modifier":"3",
+            "patient_id":"103",
+            "doctor_id":"13",
+            "source_type":"1"
+        }
+    ],
+    "database":"yibao_health",
+    "es":1564128868000,
+    "id":650,
+    "isDdl":false,
+    "mysqlType":{
+        "id":"int(11) unsigned",
+        "is_deleted":"tinyint(3) unsigned",
+        "create_time":"datetime",
+        "modify_time":"datetime",
+        "creator":"int(11) unsigned",
+        "modifier":"int(11) unsigned",
+        "patient_id":"int(11) unsigned",
+        "doctor_id":"int(11) unsigned",
+        "source_type":"tinyint(3) unsigned"
+    },
+    "old":null,
+    "pkNames":[
+        "id"
+    ],
+    "sql":"",
+    "sqlType":{
+        "id":4,
+        "is_deleted":-6,
+        "create_time":93,
+        "modify_time":93,
+        "creator":4,
+        "modifier":4,
+        "patient_id":4,
+        "doctor_id":4,
+        "source_type":-6
+    },
+    "table":"yb_patient_doctor_relation",
+    "ts":1564128869047,
+    "type":"INSERT"
+}
+```
+
+```
+{
+    "data":[
+        {
+            "id":"117",
+            "is_deleted":"0",
+            "create_time":"2019-07-17 15:50:55",
+            "modify_time":"2019-07-26 18:10:09",
+            "creator":"0",
+            "modifier":"0",
+            "patient_id":"2",
+            "source_type":"1",
+            "source_user_id":"1",
+            "record_id":"231",
+            "advice_type":"8",
+            "advice_sub_type":"0",
+            "advice_desc":"医生叮嘱：dasdas 313 33333",
+            "visit_time_status":"0",
+            "visit_time":"2019-07-17 15:50:55",
+            "hospital_id":"0",
+            "drug_id":"67",
+            "drug_user_method":"3",
+            "prescribed_dose":"33.0",
+            "prescribed_dose_unit":"粒",
+            "single_dose":"333.0",
+            "single_dose_unit":"包/次",
+            "use_frequency":"33.0",
+            "execute_status":"10",
+            "execute_reason":"33123123"
+        }
+    ],
+    "database":"yibao_health",
+    "es":1564135809000,
+    "id":711,
+    "isDdl":false,
+    "mysqlType":{
+        "id":"int(11) unsigned",
+        "is_deleted":"tinyint(3) unsigned",
+        "create_time":"datetime",
+        "modify_time":"datetime",
+        "creator":"int(11) unsigned",
+        "modifier":"int(11) unsigned",
+        "patient_id":"int(11) unsigned",
+        "source_type":"tinyint(3) unsigned",
+        "source_user_id":"int(10) unsigned",
+        "record_id":"int(11) unsigned",
+        "advice_type":"tinyint(3) unsigned",
+        "advice_sub_type":"int(11) unsigned",
+        "advice_desc":"varchar(1024)",
+        "visit_time_status":"tinyint(3) unsigned",
+        "visit_time":"datetime",
+        "hospital_id":"int(11) unsigned",
+        "drug_id":"int(11) unsigned",
+        "drug_user_method":"tinyint(4)",
+        "prescribed_dose":"decimal(6,2)",
+        "prescribed_dose_unit":"varchar(10)",
+        "single_dose":"decimal(6,2)",
+        "single_dose_unit":"varchar(10)",
+        "use_frequency":"decimal(6,2)",
+        "execute_status":"tinyint(3) unsigned",
+        "execute_reason":"varchar(1024)"
+    },
+    "old":[
+        {
+            "modify_time":"2019-07-26 18:04:08",
+            "visit_time_status":"1"
+        }
+    ],
+    "pkNames":[
+        "id"
+    ],
+    "sql":"",
+    "sqlType":{
+        "id":4,
+        "is_deleted":-6,
+        "create_time":93,
+        "modify_time":93,
+        "creator":4,
+        "modifier":4,
+        "patient_id":4,
+        "source_type":-6,
+        "source_user_id":4,
+        "record_id":4,
+        "advice_type":-6,
+        "advice_sub_type":4,
+        "advice_desc":12,
+        "visit_time_status":-6,
+        "visit_time":93,
+        "hospital_id":4,
+        "drug_id":4,
+        "drug_user_method":-6,
+        "prescribed_dose":3,
+        "prescribed_dose_unit":12,
+        "single_dose":3,
+        "single_dose_unit":12,
+        "use_frequency":3,
+        "execute_status":-6,
+        "execute_reason":12
+    },
+    "table":"yb_patient_visit_record_doctor_advice",
+    "ts":1564135809169,
+    "type":"UPDATE"
+}
+```
