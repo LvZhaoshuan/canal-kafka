@@ -45,7 +45,7 @@ public class PatientDoctorRelationDataEsProcess implements KafkaMessageProcess {
                 log.info("tableBean.EventType.UPDATE_VALUE:" + CanalEntry.EventType.UPDATE_VALUE);
                 Map updateRowData = tableBean.getData().get(0);
                 log.info("doctorId=" + updateRowData.get("doctor_id") + ",patientId=" + updateRowData.get("patient_id"));
-                elasticsearchService.insertById("patient_doctor_relation", "patient_relation", (String) updateRowData.get("id"), updateRowData);
+                elasticsearchService.update("patient_doctor_relation", "patient_relation", (String) updateRowData.get("id"), updateRowData);
                 break;
             case CanalEntry.EventType.DELETE_VALUE:
                 log.info("tableBean.getEventType():" + tableBean.getType());

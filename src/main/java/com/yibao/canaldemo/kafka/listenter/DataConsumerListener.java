@@ -51,10 +51,13 @@ public class DataConsumerListener {
                 updateEs(deleteRowData);
                 break;
             case CanalEntry.EventType.CREATE_VALUE:
+                //todo
                 break;
             case CanalEntry.EventType.ALTER_VALUE:
+                //todo
                 break;
             case CanalEntry.EventType.ERASE_VALUE:
+                //todo
                 break;
             case CanalEntry.EventType.QUERY_VALUE:
                 break;

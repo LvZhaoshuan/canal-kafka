@@ -3,7 +3,7 @@ package com.yibao.canaldemo.canal;
 import lombok.Getter;
 
 /**
- * CanalEntry 151->EventType
+ * CanalEntry 151 line->EventType
  *
  * @author houxiurong
  * @date 2019-07-26
